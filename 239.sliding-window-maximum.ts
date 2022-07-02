@@ -1,3 +1,10 @@
+/*
+ * @lc app=leetcode id=239 lang=typescript
+ *
+ * [239] Sliding Window Maximum
+ */
+
+// @lc code=start
 function maxSlidingWindow(nums: number[], k: number): number[] {
     function enqueue(q: number[], n: number) {
         while (q.length > 0 && n > q[q.length-1]) {
@@ -11,18 +18,18 @@ function maxSlidingWindow(nums: number[], k: number): number[] {
 
     for (; r < k; r += 1) { // [)
         enqueue(possibleMaxQueue, nums[r]);
-        r += 1;
     }
+    results.push(possibleMaxQueue[0]);
 
-    while (r < nums.length) {
-        results.push(possibleMaxQueue[0]);
+    for (;r < nums.length; r += 1) {
         let popped = nums[l];
         l += 1;
         if (popped === possibleMaxQueue[0]) possibleMaxQueue.shift();
         enqueue(possibleMaxQueue, nums[r]);
-        r += 1;
+        results.push(possibleMaxQueue[0]);
     }
 
     return results;
 };
-console.log(maxSlidingWindow([1,3,-1,-3,5,3,6,7], 3));
+// @lc code=end
+

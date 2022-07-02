@@ -11,45 +11,32 @@ function generateMatrix(n: number): number[][] {
         mat[i] = [];
     }
 
-    let startX = 0, startY = 0, numberToFill = 1;
-    let remainingCycles = Math.floor(n/2);
-    let mid = Math.floor(n/2);
-    let cycleOffset = 1;
-
-    while (remainingCycles > 0) {
-        let i = startX, j = startY;
-        // 1  2 3 4
-        // 12      5
-        // 11      6
-        // 10 9 8 7
-        for (; i < startX + n - cycleOffset; i += 1) {
-            mat[j][i] = numberToFill;
+    let startRow = 0, startCol = 0, endRow = n - 1, endCol = n - 1;
+    let numberToFill = 1;
+    while (startRow <= endRow && startCol <= endCol) {
+        for (let i = startCol; i <= endCol; i += 1) {
+            mat[startRow][i] = numberToFill;
             numberToFill += 1;
         }
-        // 1 2 3
-        // _ _ 4
-        // _ _ _
-        for (; j < startY + n - cycleOffset; j += 1) {
-            mat[j][i] = numberToFill;
+        startRow += 1;
+        for (let i = startRow; i <= endRow; i += 1) {
+            mat[i][endCol] = numberToFill;
             numberToFill += 1;
         }
-        // _ 6 5
-        for (; i > startX; i -= 1) {
-            mat[j][i] = numberToFill;
-            numberToFill += 1;
+        endCol -= 1;
+        if (startRow <= endRow && startCol <= endCol) {
+            for (let i = endCol; i >= startCol; i -= 1) {
+                mat[endRow][i] = numberToFill;
+                numberToFill += 1;
+            }
+            endRow -= 1;
+            for (let i = endRow; i >= startRow; i -= 1) {
+                mat[i][startCol] = numberToFill;
+                numberToFill += 1;
+            }
+            startCol += 1;
         }
-        for (; j > startY; j -= 1) {
-            mat[j][i] = numberToFill;
-            numberToFill += 1;
-        }
-
-        startX += 1;
-        startY += 1;
-        cycleOffset += 2;
-        remainingCycles -= 1;
     }
-
-    if (n % 2 != 0) mat[mid][mid] = numberToFill;
     return mat;
 };
 // @lc code=end
