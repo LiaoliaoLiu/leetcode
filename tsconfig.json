@@ -7,7 +7,7 @@
     "target": "es6",
   },
   "include": [
-    "test.ts" ],
+    "./typescript/test.ts" ],
   "exclude": [
     "node_modules/*","coverage"
   ]
