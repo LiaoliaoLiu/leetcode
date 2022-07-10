@@ -1,1 +1,1 @@
-console.log([1]);
+import TreeNode from './TreeNode';
