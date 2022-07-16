@@ -10,7 +10,7 @@ export default class TreeNode {
 
     static insertLevelOrder(arr: number[], i: number, n: number): TreeNode | null {
         let root: TreeNode | null = null;
-        if (i < n && arr[i]) {
+        if (i < n && arr[i] !== null) {
             root = new TreeNode(arr[i], null, null);
             root.left = this.insertLevelOrder(arr, 2*i + 1, n);
             root.right = this.insertLevelOrder(arr, 2*i + 2, n);
